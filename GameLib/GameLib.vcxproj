@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="EngineCheck|Win32">
+      <Configuration>EngineCheck</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="additionaltypes.h" />
+    <ClInclude Include="Array.h" />
+    <ClInclude Include="Assert_32.h" />
+    <ClInclude Include="BitField.h" />
+    <ClInclude Include="BitFieldHandler.h" />
+    <ClInclude Include="CheesyHelper.h" />
+    <ClInclude Include="Colliders.h" />
+    <ClInclude Include="CollisionSystem.h" />
+    <ClInclude Include="ConsolePrint.h" />
+    <ClInclude Include="Descriptor.h" />
+    <ClInclude Include="Determinant.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="EngineIncludes.h" />
+    <ClInclude Include="FloatNumbers.h" />
+    <ClInclude Include="FrameTime.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="HashedString.h" />
+    <ClInclude Include="IGameObjectController.h" />
+    <ClInclude Include="InputController.h" />
+    <ClInclude Include="LoadTexture.h" />
+    <ClInclude Include="HeapManager.h" />
+    <ClInclude Include="LuaStructure.h" />
+    <ClInclude Include="LuaUtilityHelper.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="NamedBitString.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="PhysicsComponent.h" />
+    <ClInclude Include="PhysicsSystem.h" />
+    <ClInclude Include="random.h" />
+    <ClInclude Include="Render.h" />
+    <ClInclude Include="Renderable.h" />
+    <ClInclude Include="RingBuffer.h" />
+    <ClInclude Include="SharedPointer.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SmallBlockAllocator.h" />
+    <ClInclude Include="StringPool.h" />
+    <ClInclude Include="Target.h" />
+    <ClInclude Include="Target.Win32.h" />
+    <ClInclude Include="TimeHelper.h" />
+    <ClInclude Include="UniquePtr.h" />
+    <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="Vector3D.h" />
+    <ClInclude Include="WorldScene.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Array.cpp" />
+    <ClCompile Include="BitField.cpp" />
+    <ClCompile Include="BitfieldHandler.cpp" />
+    <ClCompile Include="CheesyHelper.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="CollisionSystem.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="FloatMaths.cpp" />
+    <ClCompile Include="FloatNumbers.cpp" />
+    <ClCompile Include="FrameTime.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="HashedString.cpp" />
+    <ClCompile Include="IGameObjectController.cpp" />
+    <ClCompile Include="InputController.cpp" />
+    <ClCompile Include="LoadTexture.cpp" />
+    <ClCompile Include="HeapManager.cpp" />
+    <ClCompile Include="LuaUtilityHelper.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="MemoryManager.cpp" />
+    <ClCompile Include="NamedBitString.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="PhysicsComponent.cpp" />
+    <ClCompile Include="PhysicsSystem.cpp" />
+    <ClCompile Include="random.cpp" />
+    <ClCompile Include="Render.cpp" />
+    <ClCompile Include="Renderable.cpp" />
+    <ClCompile Include="Singleton.cpp" />
+    <ClCompile Include="SmallBlockAllocator.cpp" />
+    <ClCompile Include="StringPool.cpp" />
+    <ClCompile Include="UniquePtr.cpp" />
+    <ClCompile Include="Vector2D.cpp" />
+    <ClCompile Include="Vector3D.cpp" />
+    <ClCompile Include="WorldScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Determinant.inl" />
+    <None Include="FloatNumber.inl" />
+    <None Include="GameObject.inl" />
+    <None Include="PhysicsComponent.inl" />
+    <None Include="random.inl" />
+    <None Include="Render.inl" />
+    <None Include="RingBuffer.inl" />
+    <None Include="SharedPointer.inl" />
+    <None Include="TimeHelper.inl" />
+    <None Include="Vector2D.inl" />
+    <None Include="Vector3D.inl" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{69F4270D-9B08-450F-AA6F-8F12107B8D7B}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>GameLib</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EngineCheck|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='EngineCheck|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Cheesy;$(SolutionDir)luaplus;$(SolutionDir)luaplus\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)luaplus;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>luaplusstatic51_1201.$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='EngineCheck|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_ENGINE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Cheesy;$(SolutionDir)luaplus;$(SolutionDir)luaplus\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)luaplus;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>luaplusstatic51_1201.Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Cheesy;$(SolutionDir)luaplus;$(SolutionDir)luaplus\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>luaplusstatic51_1201.$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)luaplus;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MonsterChaseWinApp", "MonsterChaseWinApp\MonsterChaseWinApp.vcxproj", "{A52D4AE3-3045-4861-81F5-09A63AF8866C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{69F4270D-9B08-450F-AA6F-8F12107B8D7B} = {69F4270D-9B08-450F-AA6F-8F12107B8D7B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameLib", "GameLib\GameLib.vcxproj", "{69F4270D-9B08-450F-AA6F-8F12107B8D7B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MatrixUnitTestForDebug", "MatrixUnitTestForDebug\MatrixUnitTestForDebug.vcxproj", "{A5A76708-E163-40E2-B21F-085E850C68A0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		EngineCheck|Win32 = EngineCheck|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A52D4AE3-3045-4861-81F5-09A63AF8866C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A52D4AE3-3045-4861-81F5-09A63AF8866C}.Debug|Win32.Build.0 = Debug|Win32
+		{A52D4AE3-3045-4861-81F5-09A63AF8866C}.EngineCheck|Win32.ActiveCfg = EngineCheck|Win32
+		{A52D4AE3-3045-4861-81F5-09A63AF8866C}.EngineCheck|Win32.Build.0 = EngineCheck|Win32
+		{A52D4AE3-3045-4861-81F5-09A63AF8866C}.Release|Win32.ActiveCfg = Release|Win32
+		{A52D4AE3-3045-4861-81F5-09A63AF8866C}.Release|Win32.Build.0 = Release|Win32
+		{69F4270D-9B08-450F-AA6F-8F12107B8D7B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{69F4270D-9B08-450F-AA6F-8F12107B8D7B}.Debug|Win32.Build.0 = Debug|Win32
+		{69F4270D-9B08-450F-AA6F-8F12107B8D7B}.EngineCheck|Win32.ActiveCfg = EngineCheck|Win32
+		{69F4270D-9B08-450F-AA6F-8F12107B8D7B}.EngineCheck|Win32.Build.0 = EngineCheck|Win32
+		{69F4270D-9B08-450F-AA6F-8F12107B8D7B}.Release|Win32.ActiveCfg = Release|Win32
+		{69F4270D-9B08-450F-AA6F-8F12107B8D7B}.Release|Win32.Build.0 = Release|Win32
+		{A5A76708-E163-40E2-B21F-085E850C68A0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A5A76708-E163-40E2-B21F-085E850C68A0}.Debug|Win32.Build.0 = Debug|Win32
+		{A5A76708-E163-40E2-B21F-085E850C68A0}.EngineCheck|Win32.ActiveCfg = EngineCheck|Win32
+		{A5A76708-E163-40E2-B21F-085E850C68A0}.EngineCheck|Win32.Build.0 = EngineCheck|Win32
+		{A5A76708-E163-40E2-B21F-085E850C68A0}.Release|Win32.ActiveCfg = Release|Win32
+		{A5A76708-E163-40E2-B21F-085E850C68A0}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal
