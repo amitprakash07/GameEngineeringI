@@ -18,6 +18,37 @@ namespace myEngine
 		};
 		typedef _Alignment Alignment;
 
+		enum _MessagePriority
+		{
+			HIGH = 0,
+			MODERATE = 1,
+			LOW = 2
+		};
+		typedef _MessagePriority Priority;
+
+		enum _Axis
+		{
+			XAxis = 0,
+			YAxis = 1,
+			ZAxis = 2
+		};
+		typedef _Axis Axis;
+
+
+		enum _LOG_LEVEL
+		{
+			NO_LOG = 0,
+			DEBUG_LOG = 1,
+			WARNING_LOG = 2,
+			ERROR_LOG = 4,
+			// Compare only, should not use
+			DEBUG_WARNING_LOG = 3,
+			DEBUG_ERROR_LOG = 5,
+			WARNING_ERROR_LOG = 6,
+			DEBUG_WARNING_ERROR_LOG = 7
+		};
+		typedef _LOG_LEVEL LOG_LEVEL;
+
 		struct _String
 		{
 			char *mString;
@@ -31,7 +62,7 @@ namespace myEngine
 
 			_String(char * i_char)
 			{
-				mString = i_char;
+				mString = _strdup(i_char);
 				mStringLength = strlen(mString);
 			}
 			
@@ -48,15 +79,52 @@ namespace myEngine
 		typedef _String String;
 
 		
+		struct _Accumulator
+		{
+			unsigned int	m_Count;
+			unsigned int	m_Sum;
+			unsigned int	m_Max;
+			unsigned int	m_Min;
+
+			_Accumulator()
+			{
+				m_Count = 0;
+				m_Sum = 0;
+				m_Max = 0;
+				m_Min = UINT_MAX;
+			}
+		};
+		typedef _Accumulator Accumulator;
+
 
 		struct _boundingbox
 		{
 			Vector3D position;
-			unsigned __int16 width;
-			unsigned __int16 height;
-			unsigned __int16 depth;
+			float width;
+			float height;
+			float depth;
 		};
 		typedef _boundingbox BoundingBox;
+
+
+		struct _screenResolution
+		{
+			int width;
+			int height;
+
+			_screenResolution()
+			{
+				width = 1024;
+				height = 768;
+			}
+
+			_screenResolution(int i_width, int i_height)
+			{
+				width = i_width;
+				height = i_height;
+			}
+		};
+		typedef _screenResolution ScreenResolution;
 
 		struct _RGBA
 		{

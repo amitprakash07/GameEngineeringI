@@ -99,14 +99,16 @@ namespace myEngine
 		{
 			if ((*m_referenceCount-1) == 0)
 			{
+				EngineController::GameEngine::isEngineInitialized() ? EngineController::GameEngine::getMemoryManager()->__free(m_WrappingObject) : delete m_WrappingObject; 
 				delete m_referenceCount;
-				delete m_WrappingObject;
+				m_WrappingObject = nullptr;
 			}
-
-			(*m_referenceCount)--;
+			else
+				(*m_referenceCount)--;
+			
 			return true;
 		}
-		return true;
+		return false;
 	}
 
 	template<typename T>

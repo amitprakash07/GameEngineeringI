@@ -54,6 +54,27 @@
     <Filter Include="Source Files\Allocator">
       <UniqueIdentifier>{31e3cfad-6000-4ac7-af38-1da1cb586529}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Assert">
+      <UniqueIdentifier>{e39548c4-499d-42cb-a730-4cf118382dda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Profiling">
+      <UniqueIdentifier>{78f9a2f8-e367-4ea0-bd6e-4d042a7cc933}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Profiling">
+      <UniqueIdentifier>{3d8fa33b-aef5-4f37-807a-e2ff47b4cb60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Threading">
+      <UniqueIdentifier>{62ab5672-696d-4071-8401-ef8c58dca971}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Threading">
+      <UniqueIdentifier>{41e909a4-dc64-4bd9-b851-8157668341a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\I/O File Loading">
+      <UniqueIdentifier>{567de9ac-8784-4ce8-bc03-47afff8dc1a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\I/O File Loading">
+      <UniqueIdentifier>{a22d7c7f-7840-4ec2-b105-440278264444}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -73,9 +94,6 @@
     </ClInclude>
     <ClInclude Include="Descriptor.h">
       <Filter>Header Files\Allocator</Filter>
-    </ClInclude>
-    <ClInclude Include="ConsolePrint.h">
-      <Filter>Header Files\Asserts</Filter>
     </ClInclude>
     <ClInclude Include="FloatNumbers.h">
       <Filter>Header Files\Math</Filter>
@@ -158,9 +176,6 @@
     <ClInclude Include="CheesyHelper.h">
       <Filter>Header Files\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="Assert_32.h">
-      <Filter>Header Files\Asserts</Filter>
-    </ClInclude>
     <ClInclude Include="InputController.h">
       <Filter>Header Files\Controller</Filter>
     </ClInclude>
@@ -184,6 +199,54 @@
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="ICollisionHandler.h">
+      <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultCollisionHandler.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="MessagingSystem.h">
+      <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="IMessageHandler.h">
+      <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="_assert.h">
+      <Filter>Header Files\Asserts</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsolePrint.h">
+      <Filter>Header Files\Asserts</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiler.h">
+      <Filter>Header Files\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="ScopedTimer.h">
+      <Filter>Header Files\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Header Files\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="Mutex.h">
+      <Filter>Header Files\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="Semaphore.h">
+      <Filter>Header Files\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadedFileProcessor.h">
+      <Filter>Header Files\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitableObject.h">
+      <Filter>Header Files\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadTask.h">
+      <Filter>Header Files\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadFile.h">
+      <Filter>Header Files\I/O File Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessFile.h">
+      <Filter>Header Files\I/O File Loading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +349,42 @@
     <ClCompile Include="Object.cpp">
       <Filter>Source Files\Controller</Filter>
     </ClCompile>
+    <ClCompile Include="ICollisionController.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultCollisionHandler.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="MessagingSystem.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Assert.Win32.cpp">
+      <Filter>Source Files\Assert</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsolePrint.Win32.cpp">
+      <Filter>Source Files\Assert</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiler.cpp">
+      <Filter>Source Files\Profiling</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>Source Files\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="Semaphore.cpp">
+      <Filter>Source Files\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadedFileProcessor.cpp">
+      <Filter>Source Files\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="Mutex.cpp">
+      <Filter>Source Files\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadTask.cpp">
+      <Filter>Source Files\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadFile.cpp">
+      <Filter>Source Files\I/O File Loading</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="GameObject.inl">
@@ -321,5 +420,10 @@
     <None Include="Determinant.inl">
       <Filter>Source Files\Math</Filter>
     </None>
+    <None Include="ThreadinAssignmentRequirements.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="MessagingSystemRequirement.txt" />
+    <Text Include="ProfilingRequirement.txt" />
   </ItemGroup>
 </Project>

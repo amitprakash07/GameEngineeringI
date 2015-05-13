@@ -30,11 +30,23 @@ namespace myEngine
 
 	void World::deleteWorld()
 	{
-		for (unsigned __int16 i = 0; i < mGameObjectList.size(); i++)
+		MessagedAssert(mWorld != nullptr, "World Controller is either deleted or not instaniated");
+		EngineController::GameEngine::isEngineInitialized() ?
+			EngineController::GameEngine::getMemoryManager()->__free(mWorld) :
+			delete mWorld;
+	}
+
+
+	World::~World()
+	{
+		if (mGameObjectList.size() > 0)
 		{
-			if (!mGameObjectList[i].isNull())
-				mGameObjectList[i].deleteObject();
+			while (mGameObjectList.size() != 0)
+				mGameObjectList.erase(mGameObjectList.begin());
 		}
+		
+		if (mGameName != nullptr)
+			delete mGameName;
 	}
 
 
@@ -47,6 +59,7 @@ namespace myEngine
 		mGameWindowColor.G = 50;
 		mGameWindowColor.B = 255;
 		mGameWindowColor.A = 0;
+		EngineController::GameEngine::getMessagsingSystem()->addMessageHandler(myEngine::utils::StringHash("Player Died"), this, myEngine::typedefs::HIGH);
 		//initialized = true;
 	}
 
@@ -59,38 +72,61 @@ namespace myEngine
 	}
 
 
+	void World::HandleMessage(myEngine::utils::StringHash & i_message, void *i_MessageSender, void* i_pMessageData)
+	{
+		if (i_message == myEngine::utils::StringHash("Player Died"))
+		{
+			while (mGameObjectList.size() > 0)
+				removeFromWorld(mGameObjectList.at(0));
+			EngineController::GameEngine::getMessagsingSystem()->sendMessage(myEngine::utils::StringHash("GameOver"), this);
+		}
+	}
+
+
 	SharedPointer<GameObject> World::getNearestGameObject(Vector3D iPosiiton)
 	{
-		SharedPointer<GameObject> nearestGameObject = myEngine::GameObject::CreateGameObject(Vector3D(0, 0, 0)); //= mGameObjectList[0];
+		SharedPointer<GameObject> nearestGameObject = mGameObjectList.at(0); //= mGameObjectList[0];
 		float nearestDistance = (nearestGameObject->getPosition() - iPosiiton).length();
-
+		float tempDistance;
 		assert(mGameObjectList.size() > 0);
 		for (size_t i = 1; i < mGameObjectList.size(); i++)
 		{
-			if ((mGameObjectList[i]->getPosition() - iPosiiton).length() < nearestDistance)
-				nearestGameObject.isEqual(mGameObjectList[i]);
-
-			return nearestGameObject;
+			tempDistance = (mGameObjectList[i]->getPosition() - iPosiiton).length();
+			if (AlmostEqualUlpsFinal(nearestDistance, 0.0f, 10))
+			{
+				nearestDistance = tempDistance;
+				continue;
+			}			
+			if (( !AlmostEqualUlpsFinal(tempDistance, 0.0f, 10) && tempDistance < nearestDistance))
+				nearestGameObject = mGameObjectList[i];
 		}//end-for
-
+		return nearestGameObject;
 	}//end-getNearestGameObject
 
 
 	SharedPointer<GameObject> World::getNearestGameObjectWithPointer(Vector3D iPosiiton)
 	{
-		SharedPointer<GameObject> nearestGameObject = myEngine::GameObject::CreateGameObject(Vector3D(0, 0, 0)); //= mGameObjectList[0];
+		SharedPointer<GameObject> nearestGameObject = mGameObjectList.at(0); //= mGameObjectList[0];
 		float nearestDistance = (nearestGameObject->getPosition() - iPosiiton).length();
 
 		assert(mGameObjectList.size() > 0);
 		for (size_t i = 1; i < mGameObjectList.size(); i++)
 		{
 			if ((mGameObjectList[i]->getPosition() - iPosiiton).length() < nearestDistance)
-				nearestGameObject.isEqual(mGameObjectList[i]);
-
-			return nearestGameObject;
+				nearestGameObject = mGameObjectList[i];
 		}//end-for
+		return nearestGameObject;
 		
 	}//end-getNearestGameObjectWithPointer
+
+	SharedPointer<GameObject> World::getPlayer()
+	{
+		for (unsigned __int16 i = 0; i < mGameObjectList.size(); i++)
+		{
+			if (myEngine::utils::StringHash(mGameObjectList[i]->getType()) == myEngine::utils::StringHash("Player"))
+				return mGameObjectList[i];
+		}
+	}
 
 
 
@@ -127,6 +163,7 @@ namespace myEngine
 					EngineController::GameEngine::getRenderingSystemController()->addToRenderables(tempMonster);
 				}
 			}
+
 		}
 	}//end function
 
@@ -142,14 +179,40 @@ namespace myEngine
 	void World::updateWorld()
 	{
 		EngineController::GameEngine::getPhysicsSystemController()->updatePhysicsSystem();
-		EngineController::GameEngine::getCollisionSystemController()->checkAndResponseCollision();
+		EngineController::GameEngine::getCollisionSystemController()->updateCollisionSystem();
+		EngineController::GameEngine::getEngineClock()->updateDeltaTime();
+		EngineController::GameEngine::getRenderingSystemController()->drawRenderables();
 	}
 
 
 	bool World::removeFromWorld(SharedPointer<GameObject>& i_gameObject)
 	{
-		//To-Do
-		return true;
+		if (EngineController::GameEngine::getRenderingSystemController()->removeFromRenderables(i_gameObject) &&
+			EngineController::GameEngine::getCollisionSystemController()->removeFromCollisionSystem(i_gameObject) &&
+			EngineController::GameEngine::getPhysicsSystemController()->removeFromPhysicsSystem(i_gameObject))
+		{
+			unsigned __int16 index = 0x0f0f0f0f;
+			if (inWorld(i_gameObject, index) && (index != 0x0f0f0f0f))
+			{
+				mGameObjectList.erase(mGameObjectList.begin() + index);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	bool World::inWorld(SharedPointer<GameObject> & i_gameObject, unsigned __int16 & o_index)
+	{
+		MessagedAssert(!i_gameObject.isNull(), "Passed Game Object Pointer is null");
+		for (unsigned __int16 i = 0; i < mGameObjectList.size(); i++)
+		{
+			if (mGameObjectList.at(i).isEqual(i_gameObject))
+			{
+				o_index = i;
+				return true;
+			}			
+		}
+		return false;
 	}
 
 	char* World::getGameName() const

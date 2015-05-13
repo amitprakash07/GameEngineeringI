@@ -21,6 +21,28 @@ namespace myEngine
 
 		}//getStringPool
 
+
+		void StringPool::deleteStringPool()
+		{
+			MessagedAssert(mStringPool != nullptr, "String Pool either not instantiated or had been deleted");
+			EngineController::GameEngine::isEngineInitialized() ?
+				EngineController::GameEngine::getMemoryManager()->__free(mStringPool) :
+				delete mStringPool;
+
+			mStringPool = nullptr;
+		}
+
+
+		StringPool::~StringPool()
+		{
+			while (mStringList.size() != 0)
+			{
+				delete (mStringList.at(0).mString);
+				mStringList.at(0).mString = nullptr;
+				mStringList.erase(mStringList.begin());
+			}
+		}
+
 		StringPool::StringPool()
 		{
 			mStringList.reserve(200);
@@ -29,24 +51,28 @@ namespace myEngine
 
 		char* StringPool::findString(char * i_string)
 		{
-			size_t tempStringLength = strlen(i_string);
-			bool isFound = false;
-			
-			for (size_t i = 0; i < mStringList.size(); i++)
+			if (i_string != "\0")
 			{
-				if (myEngine::utils::StringHash(mStringList[i].getAsChar()) == myEngine::utils::StringHash(i_string))
-					return mStringList[i].getAsChar();
+
+				size_t tempStringLength = strlen(i_string);
+				bool isFound = false;
+
+				for (size_t i = 0; i < mStringList.size(); i++)
+				{
+					if (myEngine::utils::StringHash(mStringList[i].getAsChar()) == myEngine::utils::StringHash(i_string))
+						return mStringList[i].getAsChar();
+				}
+
+				return (addString(i_string));
 			}
 
-			return (addString(i_string));
+			return ("\0");
 		}//end find function
 
 
 		char* StringPool::addString(char* i_String)
 		{
-			myEngine::typedefs::String tempString = myEngine::typedefs::String(i_String);// {i_String, strlen(i_String)};
-			//tempString.mString = _strdup(i_String);
-			//tempString.mStringLength = strlen(i_String);
+			myEngine::typedefs::String tempString = myEngine::typedefs::String(i_String);
 			mStringList.push_back(tempString);
 			return tempString.mString;
 		}

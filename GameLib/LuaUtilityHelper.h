@@ -5,7 +5,6 @@
 #include "Vector3D.h"
 #include "additionaltypes.h"
 #include "LuaStructure.h"
-#include <assert.h>
 
 
 namespace LuaUtilityHelper

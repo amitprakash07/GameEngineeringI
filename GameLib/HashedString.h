@@ -12,13 +12,14 @@ namespace myEngine
 			StringHash(const char*);
 			StringHash(const StringHash &);
 
-			unsigned __int32 getHash();
-			StringHash & operator=(const StringHash &);
-
-			bool operator==(const StringHash &) const;
-
-			static unsigned __int32 Hash(const char *);
-			static unsigned __int32 Hash(const void *, size_t);
+			unsigned __int32						getHash() const;
+			StringHash &							operator=(const StringHash &);
+			bool									operator !=(const StringHash&) const;
+			bool									operator==(const StringHash &) const;
+			bool									operator < (const StringHash &) const;
+			static unsigned __int32					Hash(const char *);
+			static unsigned __int32					Hash(const void *, size_t);
+			bool									isNil() const;
 
 		private:
 			unsigned __int32 mHash;

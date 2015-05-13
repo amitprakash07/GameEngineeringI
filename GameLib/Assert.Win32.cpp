@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <Windows.h>
-
+#include "additionaltypes.h"
 #include "ConsolePrint.h"
 
 namespace myEngine
@@ -18,12 +18,12 @@ namespace myEngine
 		switch (result)
 		{
 		case IDYES:
-			myEngine::ConsolePrint("File: %s Line: %d Condition: %s\n", i_pFile, i_LineNo, i_pExp);
-			myEngine::ConsolePrint("Message: %s\n", i_pMessage );
+			DEBUG_PRINT_LOCATION(myEngine::typedefs::WARNING_LOG, i_pFile, i_LineNo, "Condition: %s\n", i_pExp);
+			DEBUG_PRINT(myEngine::typedefs::WARNING_LOG, "Message: %s\n", i_pMessage);
 			return true;
 		default:
 			return false;
 		}
 	}
 
-} // namespace Engine
+} // namespace myEngine

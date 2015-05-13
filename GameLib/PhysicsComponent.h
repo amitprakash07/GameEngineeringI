@@ -24,6 +24,8 @@ namespace myEngine
 			inline Vector3D									getAcceleration();
 			inline Vector3D									getCurrentPosition();
 			inline Vector3D									getCurrentVelocity();
+			inline Vector3D									getCurrentDirection();
+			
 			
 			//setters
 			inline void										setForce(Vector3D);
@@ -32,7 +34,10 @@ namespace myEngine
 			inline void										setMinAcceleration(float);
 			inline void										setPreviousPosition(Vector3D);
 			inline void										setCurrentPosition(Vector3D);
+			inline void										setCurrentVelocity(Vector3D);
+			inline void										setCurrentDirection(Vector3D);
 			void											updatePhysics();
+			void											updatePhysics(float);
 			//functionalities
 			void											addForce(Vector3D);
 			
@@ -44,7 +49,8 @@ namespace myEngine
 			Vector3D										mForce;
 			Vector3D										mPreviousPosition;
 			Vector3D										mCurrentPosition;
-			Vector3D										mVelocity;
+			Vector3D										mCurrentVelocity;
+			Vector3D										mCurrentdirection;
 			float											mMaxAcceleration;
 			float											mMinAcceleration;
 						

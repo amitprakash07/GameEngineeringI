@@ -18,9 +18,8 @@ namespace myEngine
 			NamedBitSet();
 		private:
 			static size_t mBitCount; // number of bits-should be in between 8 and 64
-			//static myEngine::utils::Array<StringHash> mNamedBits;
 			static std::vector<StringHash> mNamedBits;
-			void addHashString(myEngine::utils::StringHash);
+			void addHashString(myEngine::utils::StringHash &);
 		};
 	}//end namespace utils
 }//end namespace myEngine

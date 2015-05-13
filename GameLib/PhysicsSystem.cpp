@@ -28,6 +28,27 @@ namespace myEngine
 			return mPhysicsSystem;
 		}
 
+		void PhysicsSystem::deletePhysicsSystem()
+		{
+			MessagedAssert(mPhysicsSystem != nullptr, "Physics System is either not instantiated or had been deleted");
+			EngineController::GameEngine::isEngineInitialized() ?
+				EngineController::GameEngine::getMemoryManager()->__free(mPhysicsSystem) :
+				delete mPhysicsSystem;
+		}
+
+
+		PhysicsSystem::~PhysicsSystem()
+		{	
+			while (mPhysicsGameObjectList.size() != 0)
+			{
+				mPhysicsGameObjectList.erase(mPhysicsGameObjectList.begin());
+			}
+
+			if (!physicsClock.isNull())
+				physicsClock.deleteObject();
+		}
+
+
 		void PhysicsSystem::addToPhysicsSystem(SharedPointer<GameObject> & i_gameObject)
 		{
 			size_t stubIndex;
@@ -36,13 +57,15 @@ namespace myEngine
 				mPhysicsGameObjectList.push_back(i_gameObject);
 		}
 
-		void PhysicsSystem::removeFromPhysicsSystem(SharedPointer<GameObject> & i_gameObject)
+		bool PhysicsSystem::removeFromPhysicsSystem(SharedPointer<GameObject> & i_gameObject)
 		{
-			size_t objectIndex;
-			if (!i_gameObject.isNull() && isGameObjectPhysicsEnabled(i_gameObject,objectIndex))
+			size_t objectIndex = 0x0f0f0f0f;
+			if (!i_gameObject.isNull() && isGameObjectPhysicsEnabled(i_gameObject, objectIndex) && (objectIndex != 0x0f0f0f0f))
 			{
 				mPhysicsGameObjectList.erase(mPhysicsGameObjectList.begin() + objectIndex);
+				return true;
 			}
+			return false;
 		}
 
 		bool PhysicsSystem::isGameObjectPhysicsEnabled(SharedPointer<GameObject> &i_gameObject, size_t & o_index)

@@ -16,6 +16,7 @@ struct Point2D
 		y( i_y )
 	{}
 } ;
+typedef Point2D Point2D;
 
 struct ColorRGB
 {
@@ -30,6 +31,7 @@ struct ColorRGB
 		b( i_b )
 	{}
 } ;
+typedef ColorRGB ColorRGB;
 
 struct ColorRGBA
 {
@@ -45,6 +47,7 @@ struct ColorRGBA
 		a( i_a )
 	{}
 } ;
+typedef ColorRGBA ColorRGBA;
 
 struct UV
 {
@@ -58,6 +61,7 @@ struct UV
 		v( i_v )
 	{}
 };
+typedef UV UV;
 
 typedef struct UV UVSet[4];
 

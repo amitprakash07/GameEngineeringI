@@ -6,7 +6,8 @@
 
 using namespace std;
 
-namespace myEngine{
+namespace myEngine
+{
 	Vector3D::Vector3D() :
 		x(0),
 		y(0),
@@ -85,6 +86,17 @@ namespace myEngine{
 		z = i_vector.z;
 	}
 
+
+	bool Vector3D::operator <(const Vector3D i_other) const
+	{
+		return (length() < i_other.length() ? true : false);
+	}
+	
+	bool Vector3D::operator >(const Vector3D i_other) const
+	{
+		return (length() > i_other.length() ? true : false);
+	}
+
 	void Vector3D::setRandomVector(){
 		//unsigned char randNum;
 		x = getRandomNumber();
@@ -92,30 +104,38 @@ namespace myEngine{
 		z = getRandomNumber();
 	}
 
-	void Vector3D::normalizeVector(){
-		x = (unsigned char)(x / (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2))));
-		y = (unsigned char)(y / (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2))));
-		z = (unsigned char)(z / (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2))));
+	void Vector3D::normalizeVector()
+	{
+		float m_length = length();
+		if (AlmostEqualUlpsFinal(m_length, 0.0f, 100))
+		{
+			x = y = z = 0;
+		}
+		x = x / m_length;
+		y = y / m_length;
+		z = z / m_length;
 	}
 
 	Vector3D Vector3D::getNormalizeVector(){
-		float temp_x = (x / (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2))));
-		float temp_y = (y / (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2))));
-		float temp_z = (z / (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2))));
+		float temp_x = x / length();
+		float temp_y = y / length();
+		float temp_z = z / length();
 		return Vector3D(temp_x, temp_y, temp_z);
 	}
 
 	Vector3D Vector3D::GenerateRandomVector(Vector3D & i_Min, Vector3D & i_Max)
 	{
 		return Vector3D(
-			myMath::RandInRange<float>(i_Min.getX(), i_Max.getX()),
-			myMath::RandInRange<float>(i_Min.getY(), i_Max.getY()),
-			myMath::RandInRange<float>(i_Min.getZ(), i_Max.getZ()));
+			RandInRange(i_Min.getX(), i_Max.getX()),
+			RandInRange(i_Min.getY(), i_Max.getY()),
+			RandInRange(i_Min.getZ(), i_Max.getZ()));
 	}
 
-	float Vector3D::length()
+	float Vector3D::length() const
 	{
-		return(static_cast<float>((sqrt(pow(x, 2) + pow(x, 2) + pow(z, 2)))));
+		if (!myEngine::IsNan(x) && !myEngine::IsNan(y) && !myEngine::IsNan(z))
+			return(static_cast<float>((sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)))));
+		return 0.0f;
 	}
 
 	float Vector3D::dotProduct(const Vector3D i_other)
@@ -139,5 +159,18 @@ namespace myEngine{
 	Vector3D Vector3D::getUnitVector()
 	{
 		return Vector3D(1.0f, 1.0f, 1.0f);
+	}
+
+
+	void Vector3D::negate()
+	{
+		x = -x;
+		y = -x;
+		z = -z;
+	}
+	
+	Vector3D Vector3D::getNegatedVector(Vector3D i_other)
+	{
+		return (Vector3D(-i_other.x, -i_other.y, -i_other.z));
 	}
 }

@@ -34,6 +34,8 @@ namespace myEngine
 		{
 			mPreviousPosition = Vector3D(0.0f, 0.0f, 0.0f);
 			mCurrentPosition = Vector3D(0.0f, 0.0f, 0.0f);
+			mCurrentVelocity = Vector3D(0.0f, 0.0f, 0.0f);
+			mCurrentdirection = Vector3D(0.0f, 0.0f, 0.0f);
 		}
 
 
@@ -50,13 +52,29 @@ namespace myEngine
 				+ (getAcceleration() * static_cast<float>(pow(time_diff, 2)));
 			mPreviousPosition = mCurrentPosition;
 			mCurrentPosition = tempPosition;
-			mVelocity = ((mCurrentPosition - mPreviousPosition) * 0.5) / time_diff;
+			if (!AlmostEqualUlpsFinal(time_diff, 0.0f, 2))
+				mCurrentVelocity = ((mCurrentPosition - mPreviousPosition) * 0.5) / time_diff;
+			else
+				mCurrentVelocity = Vector3D::getZeroVector();
+		}
+
+
+		//Call to advance object physics component on collision
+		void PhysicsComponent::updatePhysics(float i_deltaTime)
+		{
+			Vector3D tempPosition = ((mCurrentPosition * 2) - mPreviousPosition)
+				+ (getAcceleration() * static_cast<float>(pow(i_deltaTime, 2)));
+			mPreviousPosition = mCurrentPosition;
+			mCurrentPosition = tempPosition;
+			mCurrentVelocity = ((mCurrentPosition - mPreviousPosition) * 0.5) / i_deltaTime;
 		}
 
 		
+		//Adds Force to the physics component
 		void	PhysicsComponent::addForce(Vector3D i_force)
 		{
 			mForce = mForce + i_force;
+			mCurrentdirection = mForce.getNormalizeVector();
 		}
 
 

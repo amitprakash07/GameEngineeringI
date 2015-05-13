@@ -1,5 +1,15 @@
 #include "LuaUtilityHelper.h"
 #include "IGameObjectController.h"
+#include "HashedString.h"
+
+namespace EngineController
+{
+	class GameEngine
+	{
+	public:
+		static bool isThreadingEnabled();
+	};
+}
 
 namespace LuaUtilityHelper
 {
@@ -28,7 +38,7 @@ namespace LuaUtilityHelper
 		return false;		
 	}
 
-	bool getAsVector3D(LuaPlus::LuaObject i_luaObject, unsigned __int16 &o_width, unsigned __int16 &o_height, unsigned __int16 &o_depth)
+	bool getAsVector3D(LuaPlus::LuaObject i_luaObject, float &o_width, float &o_height, float &o_depth)
 	{
 		if (!i_luaObject.IsNil())
 		{
@@ -37,13 +47,13 @@ namespace LuaUtilityHelper
 				switch (i)
 				{
 				case 1:
-					o_width = static_cast<unsigned __int16> (i_luaObject[1].GetFloat());
+					o_width = static_cast<float> (i_luaObject[1].GetFloat());
 					break;
 				case 2:
-					o_height = static_cast<unsigned __int16> (i_luaObject[2].GetFloat());
+					o_height = static_cast<float> (i_luaObject[2].GetFloat());
 					break;
 				case 3:
-					o_depth = static_cast<unsigned __int16> (i_luaObject[3].GetFloat());
+					o_depth = static_cast<float> (i_luaObject[3].GetFloat());
 					break;
 				}
 			}
@@ -83,16 +93,34 @@ namespace LuaUtilityHelper
 	}
 
 	
-	bool getGlobalLuaObject(const char * i_filename, const char* i_global, LuaPlus::LuaObject &o_luaObject)
+	bool getGlobalLuaObject(const char * i_filenameOrContentsinString, const char* i_global, LuaPlus::LuaObject &o_luaObject)
 	{
 		LuaPlus::LuaState *pState = LuaPlus::LuaState::Create();
-		if (pState && (pState->DoFile(i_filename)==0))
+		if (pState && EngineController::GameEngine::isThreadingEnabled())
+		{
+			if (myEngine::utils::StringHash(i_global) == myEngine::utils::StringHash("Settings"))
+				goto __DO_STRING;
+			else goto __DO_FILE;
+		}
+		else goto __DO_FILE;
+
+	__DO_FILE:
+		if(pState->DoFile(i_filenameOrContentsinString) == 0)
 		{
 			o_luaObject = static_cast<LuaPlus::LuaObject>(pState->GetGlobal(i_global));
 			return true;
 		}
-
 		return false;
+
+	__DO_STRING:
+		if (pState->DoString(i_filenameOrContentsinString) == 0)
+		{
+			o_luaObject = static_cast<LuaPlus::LuaObject>(pState->GetGlobal(i_global));
+			return true;
+		}
+		return false;
+
+		
 	}//end function
 
 
@@ -135,7 +163,13 @@ namespace LuaUtilityHelper
 						o_lActor.id = const_cast<char *> (i_luaGameObject["id"].GetString());
 
 					if (!i_luaGameObject["name"].IsNil() && i_luaGameObject["name"].IsString())
+					{
 						o_lActor.name = const_cast<char*>(i_luaGameObject["name"].GetString());
+#ifdef _ENGINE_DEBUG
+						std::cout << o_lActor.name;
+#endif
+					}
+					
 
 					if (!i_luaGameObject["class"].IsNil() && i_luaGameObject["class"].IsString())
 						o_lActor.category = const_cast<char*>(i_luaGameObject["class"].GetString());

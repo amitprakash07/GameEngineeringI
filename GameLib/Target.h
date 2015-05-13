@@ -1,7 +1,7 @@
 #ifndef __TARGET_H
 #define __TARGET_H
 
-#if defined(WIN32)
+#if defined(_WIN32)
 #include "Target.Win32.h"
 #else
 #error "Must include platform target file."

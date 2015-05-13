@@ -13,35 +13,30 @@ namespace MemoryManagement
 		if ((i_count % 32) != 0) tempCount = (tempCount / 32) + 1;
 		else tempCount /= 32;
 
-#ifndef __GAMEENGINE
-		void * i_ptr_address = malloc(i_memoryBlockSize * i_count);
-#else
-		void *i_ptr_address = MemoryManagement::MemoryManager::getMemoryManager()->__alloc(i_memoryBlockSize * i_count);
-#endif
+		void* i_ptr_address = nullptr;
 
-		if (i_ptr_address == NULL) return 0;
+		i_ptr_address = EngineController::GameEngine::isEngineInitialized() ?
+			EngineController::GameEngine::getMemoryManager()->__alloc(i_memoryBlockSize * i_count) :
+			malloc(i_memoryBlockSize * i_count);
+
+		if (i_ptr_address == nullptr) return 0;
 
 		BitField * i_ptr_mem_track = BitField::CreateBitField(tempCount);
 
-		if (i_ptr_mem_track == NULL)
+		if (i_ptr_mem_track == nullptr)
 		{
-			free(i_ptr_address);
-			return 0;
+			EngineController::GameEngine::isEngineInitialized() ?
+				EngineController::GameEngine::getMemoryManager()->__free(i_ptr_address) : free(i_ptr_address);
+			return nullptr;
 		}
 
-#ifndef __GAMEENGINE
-		return (new SmallBlockAllocator(i_memoryBlockSize,
-			i_count,
-			i_ptr_address,
-			i_ptr_mem_track));
-#else
-		return (new(MemoryManagement::MemoryManager::getMemoryManager()->__alloc(sizeof(SmallBlockAllocator)))
-			SmallBlockAllocator(i_memoryBlockSize,
-			i_count,
-			i_ptr_address,
-			i_ptr_mem_track));
-#endif
+		return(EngineController::GameEngine::isEngineInitialized() ?
+			new(MemoryManagement::MemoryManager::getMemoryManager()->__alloc(sizeof(SmallBlockAllocator)))
+			SmallBlockAllocator(i_memoryBlockSize, i_count, i_ptr_address, i_ptr_mem_track) :
+			new SmallBlockAllocator(i_memoryBlockSize, i_count, i_ptr_address, i_ptr_mem_track));
+		
 	}
+
 
 	SmallBlockAllocator::SmallBlockAllocator(size_t i_memoryBlockSize, size_t i_blockCount, void * i_ptrMemoryPoolStartAddress, BitField * i_ptrMemoryTracker) :
 		memoryBlockSize(i_memoryBlockSize),
@@ -54,7 +49,11 @@ namespace MemoryManagement
 
 	SmallBlockAllocator::~SmallBlockAllocator()
 	{
-		free(memoryPoolStartAddress);
+		if (EngineController::GameEngine::isEngineInitialized())
+			EngineController::GameEngine::getMemoryManager()->__free(memoryPoolStartAddress);
+		else
+			free(memoryPoolStartAddress);
+
 		free(memoryTracker);
 	}
 

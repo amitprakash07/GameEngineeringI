@@ -14,8 +14,12 @@
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
-	Game::startGame();
-
+	{
+		Game::getGameController()->initGame();
+		Game::getGameController()->startGame();
+		Game::getGameController()->endGame();
+	}
+	Cheesy::Shutdown();
 #ifdef _DEBUG
 	_CrtDumpMemoryLeaks();
 #endif

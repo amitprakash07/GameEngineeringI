@@ -14,8 +14,9 @@ namespace myEngine
 		{
 		public:
 			static Renderables*										getRenderingSystem();
+			static	void											deleteRenderingSystem();
 			void													addToRenderables(SharedPointer<GameObject>&);
-			void													removeFromRenderables(SharedPointer<GameObject>&);
+			bool													removeFromRenderables(SharedPointer<GameObject>&);
 			bool													isObjectRenderable(SharedPointer<GameObject>&, size_t &);
 			void													drawRenderables();
 
@@ -26,6 +27,7 @@ namespace myEngine
 			Renderables();
 			Renderables(Renderables&);
 			Renderables operator = (Renderables);
+			~Renderables();
 		};
 	}
 }

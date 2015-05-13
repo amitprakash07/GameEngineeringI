@@ -1,0 +1,25 @@
+Purpose:
+
+    Add the ability to load and process files indepentent of your main thread.
+
+Primary Requirements:
+
+   
+    Add the ability to load an process lua files using threads. It should work something like this:
+        Have 3 threads:
+            Main Thread - Runs your game loop
+            File I/O Thread - Requests and monitors file reads.
+            File Processing Thread - Processes the contents of a game file.
+        Your Main Thread and File I/O Thread share a thread safe list of files that needed to be loaded.
+            When the Main thread needs a file loaded and processed it adds it to this shared list and signals a semaphore.
+            The File I/O Thread waits on the signal. When the signal comes it starts the load and waits for it to be completed.
+        Your File I/O Thread and File Processing Thread share a thread safe list of files that need to be processed
+            When a file is finished loading successfully the File I/O thread adds it to the shared list and signals a semaphore.
+            The File Processing Thread waits on the semaphore.When the semaphore is signaled it processes a file from the list.
+        Your File Processing Thread and Main Thread share a thread safe list of Actors that need to be added to your key systems.
+            When a file is finished processing and an Actor is created the File Processing Thread adds it to the list.
+            At some point during the game loop the Main Thread checks to see if there are any Actors in the list. If so it pops them off and adds the to the appropriate game systems.
+            No semaphore is required. This is a polling situation.
+    Add a Message handler that receives a keypress message. If a given key is pressed it adds a lua file describing a game Actor to the list of files needing loaded and processing.
+    You should be able to demonstrate by hitting the appropriate key that a new Actor is asyncronously added to your game.
+    All new threads should also respond to an Event requesting that they shut down and shut down accordingly. Your main thread should signal this Event on shutdown and wait until all threads have shutdown before exiting.

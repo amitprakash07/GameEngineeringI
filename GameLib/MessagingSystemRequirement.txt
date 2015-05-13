@@ -1,0 +1,10 @@
+
+    Add a messaging system to your game.
+        It should include a function callback or base interface class for message receiving that allows the user to receive notification of a particular message.
+        It should support sending of a message (event notification) and data associated with the message, if necessary.
+        It should support using the same callback for multiple messages.
+        Add one other feature to your messaging system (such as the ability to prioritize receivers for a particular message).
+    Use your messaging system for notifying of key presses.
+        Make your engine receive the keyboard callback from Cheesy and have it send messages of key presses.
+    Add sending of a "Player Died" message.
+        Have at least one receiver of the "Player Died" message.

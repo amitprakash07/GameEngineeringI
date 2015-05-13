@@ -1,4 +1,5 @@
 #include "Render.h"
+#include "Engine.h"
 
 namespace myEngine
 {
@@ -40,11 +41,33 @@ namespace myEngine
 				);
 			assert(sprite);
 			sprite->Draw(offset, rotation);
+			delete sprite;
+			sprite = nullptr;
 		}
 
 		void Sprite::draw()
 		{
 			draw(Vector3D(0, 0, 0));
+		}
+
+		Sprite::~Sprite()
+		{
+			if (filename != nullptr)
+			{
+				delete filename;
+				filename = nullptr;
+			}
+			
+			if (sprite != nullptr)
+			{
+				delete sprite;
+				sprite = nullptr;
+			}
+
+			if (texture != nullptr)
+			{
+				texture = nullptr;
+			}
 		}
 	}//Rendering
 }//myEngine

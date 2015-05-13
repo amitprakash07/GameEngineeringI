@@ -28,17 +28,21 @@ namespace myEngine
 		Vector3D																				operator /(const float); // To DO
 		void																					operator =(const Vector3D);
 		Vector3D																				operator *(const float);
+		bool																					operator <(const Vector3D) const;
+		bool																					operator >(const Vector3D) const;
 		inline void																				displayVector();
 		void																					setRandomVector();
 		static Vector3D																			getRandomVector();
 		static Vector3D																			GenerateRandomVector(Vector3D &, Vector3D &);
 		void																					normalizeVector();
 		Vector3D																				getNormalizeVector();
-		float																					length();
+		float																					length() const;
 		float																					dotProduct(const Vector3D);
 		Vector3D																				crossProduct(const Vector3D);
 		static Vector3D																			getZeroVector();
 		static Vector3D																			getUnitVector();
+		void																					negate();
+		static Vector3D																			getNegatedVector(Vector3D);
 		
 	};
 }

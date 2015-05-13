@@ -6,12 +6,13 @@
 #include "Vector2D.h"
 #include "Cheesy.h"
 #include "CheesyHelper.h"
+#include "IMessageHandler.h"
 
 
 //Singleton
 namespace myEngine
 {
-	class World
+	class World:myEngine::IMessageHandler
 	{
 	public:
 
@@ -23,8 +24,10 @@ namespace myEngine
 		LuaUtilityHelper::Settings										getGameConfiguration();
 		SharedPointer<GameObject>										getNearestGameObject(Vector3D);
 		SharedPointer<GameObject>										getNearestGameObjectWithPointer(Vector3D);
+		SharedPointer<GameObject>										getPlayer();
 		bool															isInitialized();
 		std::vector<SharedPointer<GameObject>>							getGameObjectList();
+		bool															inWorld(SharedPointer<GameObject>&, unsigned __int16 &);
 		
 		//T0-Dos
 		bool															removeFromWorld(SharedPointer<GameObject>&); //To Do
@@ -34,6 +37,8 @@ namespace myEngine
 		void															setWindowColor(myEngine::typedefs::RGBA);
 		Vector2D														getWindowSize() ;
 		void															setWindowSize(Vector2D);
+
+		void															HandleMessage(myEngine::utils::StringHash &, void *i_MessageSender, void* i_pMessageData) override;
 
 		
 	private:
@@ -48,6 +53,7 @@ namespace myEngine
 		World(World&);
 		World(World*);
 		World operator = (World);
+		~World();
 		//static bool														initialized;
 		
 

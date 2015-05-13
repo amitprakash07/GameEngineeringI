@@ -5,12 +5,20 @@
 #include "Cheesy.h"
 #include "Engine.h"
 
-class Game
+class Game:public myEngine::IMessageHandler
 {
 public:
-	static void startGame();
-	//static void updateGame();
-	static void endGame();
+	static Game* getGameController();
+	void startGame();
+	void initGame();
+	void endGame();
+	void drawGame();
+	void HandleMessage(myEngine::utils::StringHash &, void*, void*);
+private:
+	static Game* mGame;
+	Game(){}
+	
 };
+
 
 #endif //__GAME_H

@@ -1,5 +1,10 @@
 #include "Engine.h"
 #include "HashedString.h"
+#include "StringPool.h"
+#include "DefaultCollisionHandler.h"
+#include <stdlib.h>
+#include <wtypes.h>
+#include "ThreadedFileProcessor.h"
 
 
 #define HEAPSIZE    (1024*1024)
@@ -8,28 +13,64 @@ namespace EngineController
 {
 	
 	bool GameEngine::engineInitialized = false;
-	myEngine::SharedPointer<myEngine::Timing::Clock>  GameEngine::engineClock;
-	std::vector<EngineController::typedefs::GameObjectController> GameEngine::gameObjectControllerList;
-	
+	myEngine::SharedPointer<myEngine::Timing::Clock>					GameEngine::engineClock;
+	std::vector<EngineController::typedefs::GameObjectController>		GameEngine::gameObjectControllerList;
+	std::vector<EngineController::typedefs::CollisionHandler>			GameEngine::mCollisionHandlerList;
+	myEngine::Physics::GenereicCollisionHandler*						GameEngine::mCollisionHandler = new(getMemoryManager()->__alloc(sizeof(myEngine::Physics::GenereicCollisionHandler))) myEngine::Physics::GenereicCollisionHandler();
+	myEngine::Properties												GameEngine::mProperties;
+	bool																GameEngine::mThreadingEnabled = true;
+	bool																GameEngine::gameObjectsCreatedFromFile = false;
+	bool																GameEngine::loadingScreenDone = false;
+	bool																GameEngine::welcomeScreenDone = false;
+	bool																GameEngine::cheesyServiceQuit = false;
+	Cheesy::Point2D														GameEngine::SSTextUL(900, 500);
+	Cheesy::Point2D														GameEngine::SSTextLR(1000, 540);
+	Cheesy::ColorRGBA													GameEngine::White(255, 255, 255, 255);
+	bool																GameEngine::gameOver = false;
+
+
+
+	GameEngine::GameEngine()
+	{
+		engineInitialized = false;
+		mThreadingEnabled = false;
+		gameObjectControllerList.reserve(20);
+	}
+
+	bool GameEngine::isThreadingEnabled()
+	{
+		return mThreadingEnabled;
+	}
+
 
 	void GameEngine::startGameEngine()
 	{
 		engineInitialized = true;
-#ifdef _ENGINE_DEBUG
-		std::cout << TOTALBYTES(1024 * 1024);
-#endif
 		if (engineClock.isNull())
 			engineClock = myEngine::SharedPointer<myEngine::Timing::Clock>(myEngine::Timing::Clock::createAndStart());
-		Cheesy::Create(getWorldController()->getGameName(), 
-			static_cast<unsigned int>( getWorldController()->getWindowSize().getX()), 
-			static_cast<unsigned int>(getWorldController()->getWindowSize().getY()), false);
+		
+
+
+
+		srand(10);
+		RECT desktop;
+		const HWND screen = GetDesktopWindow();
+		GetWindowRect(screen, &desktop);
+		getWorldController()->setWindowSize(myEngine::Vector2D(static_cast<float>(desktop.right), static_cast<float>(desktop.bottom)));
+		registerCollisionHandler(mCollisionHandler, "Default");
+		Cheesy::Create(getWorldController()->getGameName(), static_cast<unsigned int>(getWorldController()->getWindowSize().getX()), static_cast<unsigned int>(getWorldController()->getWindowSize().getY()), false);
+
 	}
 
 	
-	GameEngine::GameEngine()
+	void GameEngine::stopGameEngine()
 	{
-		engineInitialized = false;
-		gameObjectControllerList.reserve(20);
+		
+		EngineController::GameEngine::getCollisionSystemController()->deleteCollisionSystem();
+		EngineController::GameEngine::getPhysicsSystemController()->getPhysicsSystem()->deletePhysicsSystem();
+		EngineController::GameEngine::getWorldController()->deleteWorld();
+		EngineController::GameEngine::getRenderingSystemController()->deleteRenderingSystem();
+		myEngine::ThreadedFileProcessor::deleteThreadFileProcessor();
 	}
 
 
@@ -39,6 +80,15 @@ namespace EngineController
 		assert(i_name != nullptr);
 		EngineController::typedefs::GameObjectController tempController = { mGameObjectController, i_name };
 		gameObjectControllerList.push_back(tempController);		
+	}
+
+
+	void GameEngine::registerCollisionHandler(myEngine::Physics::ICollisionHandler* i_collisionHandler, char* i_name)
+	{
+		assert(i_collisionHandler != nullptr);
+		assert(i_name != nullptr);
+		EngineController::typedefs::CollisionHandler tempCollisionHandler = { i_collisionHandler, getStringPool()->findString(i_name) };
+		mCollisionHandlerList.push_back(tempCollisionHandler);
 	}
 
 	
@@ -51,6 +101,24 @@ namespace EngineController
 				return gameObjectControllerList[i].mGameObjectController;
 		}
 		return nullptr;
+	}
+
+
+	myEngine::Physics::ICollisionHandler* GameEngine::getCollisionHandler(char * i_collisionHandler)
+	{
+		assert(!myEngine::utils::StringHash(i_collisionHandler).isNil());
+		for (unsigned __int16 i = 0; i < mCollisionHandlerList.size(); i++)
+		{
+			if (mCollisionHandlerList[i].mStringHash == myEngine::utils::StringHash(getStringPool()->findString(i_collisionHandler)))
+				return mCollisionHandlerList[i].mHandler;
+		}
+		return nullptr;
+	}
+
+
+	myEngine::Profiler* GameEngine::getProfilerSystem()
+	{
+		return (myEngine::Profiler::getProfiler());
 	}
 
 
@@ -95,6 +163,10 @@ namespace EngineController
 	}
 
 	
+	myEngine::MessagingSystem* GameEngine::getMessagsingSystem()
+	{
+		return(myEngine::MessagingSystem::getMessagingSystem());
+	}
 	
 	myEngine::SharedPointer<myEngine::Timing::Clock> GameEngine::getEngineClock()
 	{

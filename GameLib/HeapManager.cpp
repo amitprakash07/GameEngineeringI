@@ -13,6 +13,7 @@ namespace MemoryManagement
 		return mMemoryManager;
 	}
 
+	
 	MemoryManager * MemoryManager::getMemoryManager()
 	{
 		if (mMemoryManager == nullptr)
@@ -23,7 +24,7 @@ namespace MemoryManagement
 		return mMemoryManager;
 	}
 
-	void MemoryManager::DeleteMemoryManager()
+	void MemoryManager::deleteMemoryManager()
 	{
 		if (mMemoryManager!=nullptr)
 			delete mMemoryManager;

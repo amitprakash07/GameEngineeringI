@@ -18,32 +18,37 @@ myEngine::IGameObjectController* NonPhysicsGameController::getController()
 
 void NonPhysicsGameController::updateGameObject(myEngine::SharedPointer<myEngine::GameObject> & i_gameObject)
 {
+	float force_factor = 10000;
+	//i_gameObject->getPhysicsComponent()->setForce(myEngine::Vector3D(0.0f, 0.0f, 0.0f));
 	switch (EngineController::GameEngine::getInputController()->getKeyPressed())
 	{
 	case 'W':
 	case 'w':
 		EngineController::GameEngine::getInputController()->updateInputManager();
-		i_gameObject->setPosition(i_gameObject->getPosition() + myEngine::Vector3D(0, 5, 0));
+		i_gameObject->getPhysicsComponent()->setCurrentPosition(i_gameObject->getPhysicsComponent()->getCurrentPosition() + myEngine::Vector3D(0.0f, 5.0f, 0.0f));
+		i_gameObject->updateGameObject();
 		break;
 	case 'A':
 	case 'a':
 		EngineController::GameEngine::getInputController()->updateInputManager();
-		i_gameObject->setPosition(i_gameObject->getPosition() + myEngine::Vector3D(-5, 0, 0));
+		i_gameObject->getPhysicsComponent()->setCurrentPosition(i_gameObject->getPhysicsComponent()->getCurrentPosition() + myEngine::Vector3D(-5.0f, 0.0f, 0.0f));
+		i_gameObject->updateGameObject();
 		break;
 	case 'S':
 	case 's':
 		EngineController::GameEngine::getInputController()->updateInputManager();
-		i_gameObject->setPosition(i_gameObject->getPosition() + myEngine::Vector3D(0, -5, 0));
+		i_gameObject->getPhysicsComponent()->setCurrentPosition(i_gameObject->getPhysicsComponent()->getCurrentPosition() + myEngine::Vector3D(0.0f, -5.0f, 0.0f));
+		i_gameObject->updateGameObject();
 		break;
 	case 'd':
 	case 'D':
 		EngineController::GameEngine::getInputController()->updateInputManager();
-		i_gameObject->setPosition(i_gameObject->getPosition() + myEngine::Vector3D(5, 0, 0));
+		i_gameObject->getPhysicsComponent()->setCurrentPosition(i_gameObject->getPhysicsComponent()->getCurrentPosition() + myEngine::Vector3D(5.0f, 0.0f, 0.0f));
+		i_gameObject->updateGameObject();
 		break;
 	default:
 		EngineController::GameEngine::getInputController()->updateInputManager();
-//		i_gameObject->resetGameObject();
-
+		//i_gameObject->resetGameObject();
 		break;
 	}
 }

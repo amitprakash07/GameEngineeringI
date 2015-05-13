@@ -12,18 +12,23 @@ namespace myEngine
 		{
 		public:
 			static CollisionSystem *					getCollisionSystem();
+			static void									deleteCollisionSystem();
 			void										addToCollisionsystem(SharedPointer<GameObject> &);
-			void										removeFromCollisionSystem(SharedPointer<GameObject> &);
+			bool										removeFromCollisionSystem(SharedPointer<GameObject> &);
 			bool										isGameObjectCollidable(SharedPointer<GameObject> &, size_t &);
-			void										checkAndResponseCollision();
+			void										updateCollisionSystem();
+			
+			
 			
 		private:
 			static	CollisionSystem*					mCollisionSystem;
 			std::vector<SharedPointer<GameObject>>		mCollidingEnabledGameObjectList;
-			bool										isColliding(SharedPointer<GameObject>&, SharedPointer<GameObject>&, float &, float &);
-			void										responseToCollision(SharedPointer<GameObject>&, SharedPointer<GameObject>&, float &, float&);
+			bool										isColliding(SharedPointer<GameObject>&, SharedPointer<GameObject>&, float &, float &, myEngine::typedefs::Axis&);
+			void										responseToCollision(SharedPointer<GameObject>&, SharedPointer<GameObject>&, float &, float&, myEngine::typedefs::Axis&);
+			bool										checkCollision();
 			bool										toggleScreen;
 			CollisionSystem();
+			~CollisionSystem();
 
 		};
 	}

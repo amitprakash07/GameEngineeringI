@@ -15,15 +15,17 @@ namespace myEngine
 		{
 		public:
 			static PhysicsSystem*								getPhysicsSystem();
+			static void											deletePhysicsSystem();
 			SharedPointer<myEngine::Timing::Clock>				getPhysicsClock();
 			void												addToPhysicsSystem(SharedPointer<GameObject> &);
-			void												removeFromPhysicsSystem(SharedPointer<GameObject> &);
+			bool												removeFromPhysicsSystem(SharedPointer<GameObject> &);
 			bool												isGameObjectPhysicsEnabled(SharedPointer<GameObject>&, size_t &);
 			void												updatePhysicsSystem();
 		private:
 			static PhysicsSystem*								mPhysicsSystem;
 			std::vector<SharedPointer<GameObject>>				mPhysicsGameObjectList;
 			SharedPointer<myEngine::Timing::Clock>				physicsClock;
+			~PhysicsSystem();
 			PhysicsSystem();
 		};
 	}//namespace Physics

@@ -23,7 +23,7 @@ namespace myEngine
 		{
 			for (size_t i = 0; i < mNamedBits.size(); i++)
 			{
-				if (mNamedBits[i] == nullptr)
+				if (mNamedBits[i] != i_stringHash)
 				{
 					addHashString(i_stringHash);
 					return i;
@@ -41,7 +41,7 @@ namespace myEngine
 		}//end getBitMask
 
 		template<typename T>
-		void NamedBitSet<T>::addHashString(myEngine::utils::StringHash i_stringhash)
+		void NamedBitSet<T>::addHashString(myEngine::utils::StringHash &i_stringhash)
 		{
 			mNamedBits.push_back(i_stringhash);
 			//mNamedBits.add(i_stringhash);

@@ -13,6 +13,7 @@ namespace myEngine
 		{
 		public:
 			static StringPool*							getStringPool();
+			static void									deleteStringPool();
 			char*										findString(char*);
 
 		private:
@@ -21,6 +22,7 @@ namespace myEngine
 			char*										addString(char *);
 			StringPool();
 			StringPool(StringPool&);
+			~StringPool();
 		};//end-StringPool
 	}//end namespace utils
 }//end namespace myEngine

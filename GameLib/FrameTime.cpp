@@ -49,12 +49,12 @@ namespace myEngine
 			LARGE_INTEGER *tempTick = new LARGE_INTEGER;
 			assert(QueryPerformanceCounter(tempTick)); //takes Pointer
 			currentTick = tempTick->QuadPart;
-			deltaTime = ((float)(myEngine::Time::getTimeDiff(lastTick, currentTick)) / (float)clockFrequency);
+			deltaTime = ((float)(myEngine::Timing::getTimeDiff(lastTick, currentTick)) / (float)clockFrequency);
 
 			//checking timer was paused or not, if stopped subtracting the pause time from the time difference
 			if (pauseTimerTick != 0)
 			{
-				deltaTime -= static_cast<uint32_t>((myEngine::Time::getTimeDiff(pauseTimerTick, currentTick)) / clockFrequency);
+				deltaTime -= static_cast<uint32_t>((myEngine::Timing::getTimeDiff(pauseTimerTick, currentTick)) / clockFrequency);
 				pauseTimerTick = 0;
 			}
 
@@ -63,10 +63,30 @@ namespace myEngine
 			delete tempTick;
 		}
 
+		
 		float Clock::getdeltaTime()
 		{
 			return deltaTime;
 		}
+
+		
+		uint64_t Clock::getCurrentTick()
+		{
+			LARGE_INTEGER *tempTick = new LARGE_INTEGER;
+			assert(QueryPerformanceCounter(tempTick));
+			return (tempTick->QuadPart);
+		}
+
+		float Clock::getdeltaTimeDuringFrame()
+		{
+			LARGE_INTEGER *tempTick = new LARGE_INTEGER;
+			assert(QueryPerformanceCounter(tempTick)); //takes Pointer
+			uint64_t tempCurrentTick = tempTick->QuadPart;
+			float o_deltaTime = ((float)(myEngine::Timing::getTimeDiff(lastTick, tempCurrentTick)) / (float)clockFrequency);
+			delete tempTick;
+			return o_deltaTime;
+		}
+
 
 		bool Clock::getTimerStatus()
 		{

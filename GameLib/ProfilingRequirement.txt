@@ -1,0 +1,14 @@
+
+    Add a Profiling system to your game. It should allow for:
+        The ability to time a section of code or function using the high resolution CPU timer. You should already have code to do this for your frame timer.
+        The ability to accumulate these timings over time, keeping track of the sum, counts and min and max.
+        The ability to print out the accumated information.
+        The ability to turn accumulation on and off.
+    Add a keypress message handler that, when a given key is pressed:
+        Starts accumulating if we're not currently accumulating timings.
+        Stops accumulating if we're currently accumulating.
+        Prints out the timing information we have.
+    Include the ability to time a function or section of code using simple preprocessor macros, as we discussed in class.
+    Include the ability to completely enable or disable your timing code based on a preprocessor define.
+    Add a new build configuration to your solution that is based on a full release build but enables profiling.
+    Add enough timers to your code to time all the code in your Collision system.

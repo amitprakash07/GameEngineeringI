@@ -2,42 +2,47 @@ namespace myEngine
 {
 	inline Vector3D GameObject::getPosition()
 	{
-		return position;
+		return physicsComponent->getCurrentPosition();
 	}
 
 	inline void GameObject::setPosition(const Vector3D i_position)
 	{
-		position = i_position;
+		physicsComponent->setCurrentPosition(i_position);
 	}
 
 	inline void GameObject::setRandomPosition()
 	{
-		position.setRandomVector();
+		physicsComponent->setCurrentPosition(Vector3D(myEngine::getRandomNumber(), myEngine::getRandomNumber(), myEngine::getRandomNumber()));
 	}
 
 	inline Vector3D GameObject::getDirection()
 	{
-		return direction;
+		return physicsComponent->getCurrentDirection();
 	}
 
 	inline void GameObject::setDirection(const Vector3D i_direction)
 	{
-		direction = i_direction;
+		physicsComponent->setCurrentDirection(i_direction);
 	}
 
 	inline float GameObject::getSpeed()
 	{
-		return speed;
+		return physicsComponent->getCurrentVelocity().length();
 	}
 
 	inline void GameObject::setSpeed(const float i_speed)
 	{
-		speed = i_speed;
+		physicsComponent->setCurrentVelocity(physicsComponent->getCurrentVelocity().getNormalizeVector() * i_speed);
 	}
 
 	inline Vector3D GameObject::getVelocity()
 	{
-		return velocity;
+		return physicsComponent->getCurrentVelocity();
+	}
+
+	inline void GameObject::setVelocity(Vector3D &i_velocity)
+	{
+		physicsComponent->setCurrentVelocity(i_velocity);
 	}
 
 	inline const char * GameObject::getName()
@@ -62,7 +67,7 @@ namespace myEngine
 
 	inline void GameObject::displayPosition()
 	{
-		position.displayVector();
+		getPosition().displayVector();
 	}
 
 	inline bool	GameObject::isPhysicsObject()
@@ -77,8 +82,8 @@ namespace myEngine
 
 	inline void	GameObject::updateGameObject()
 	{
-		this->updatePosition();
-		this->updateVelocity();
+		physicsComponent->updatePhysics();
 	}
+	
 
 }

@@ -22,6 +22,26 @@ namespace myEngine
 		}
 
 
+		void Renderables::deleteRenderingSystem()
+		{
+			MessagedAssert(mRenderingSystem != nullptr, "RenderingSystem is either not instantiated or had been already deleted");
+			EngineController::GameEngine::isEngineInitialized() ?
+				EngineController::GameEngine::getMemoryManager()->__free(mRenderingSystem) :
+				delete mRenderingSystem;
+
+			mRenderingSystem = nullptr;
+		}
+
+
+		Renderables::~Renderables()
+		{
+			while (mRenderables.size() != 0)
+			{
+				mRenderables.at(0).deleteObject();
+				mRenderables.erase(mRenderables.begin());
+			}
+		}
+
 		Renderables::Renderables()
 		{
 			mRenderables.reserve(10);
@@ -40,11 +60,15 @@ namespace myEngine
 		}//addToRenderables
 
 
-		void Renderables::removeFromRenderables(SharedPointer<GameObject> &i_GameObject)
+		bool Renderables::removeFromRenderables(SharedPointer<GameObject> &i_GameObject)
 		{
-			size_t objectIndex;
-			if ((!i_GameObject.isNull()) && isObjectRenderable(i_GameObject, objectIndex))
+			size_t objectIndex = 0x0f0f0f0f;
+			if ((!i_GameObject.isNull()) && isObjectRenderable(i_GameObject, objectIndex) && (objectIndex != 0x0f0f0f0f))
+			{
 				mRenderables.erase(mRenderables.begin() + objectIndex);
+				return true;
+			}
+			return false;
 		}//removeFromRenderables
 
 
@@ -70,13 +94,19 @@ namespace myEngine
 
 		void Renderables::drawRenderables()
 		{
-			//SharedPointer<GameObject>temp;
-			for (size_t i = 0; i < mRenderables.size(); i++)
+			bool bQuit = EngineController::GameEngine::cheesyServiceQuit;
+			Cheesy::Service(bQuit);
+			if (Cheesy::BeginFrame(myEngine::getAsCheesyRGBA(EngineController::GameEngine::getWorldController()->getWindowColor())))
 			{
-				if (mRenderables[i]->isRenderable())
-					mRenderables[i]->getSprite()->draw(mRenderables[i]->getPosition());
-				else removeFromRenderables(mRenderables[i]);
-			}//for loop
+				for (size_t i = 0; i < mRenderables.size(); i++)
+				{
+					if (mRenderables[i]->isRenderable())
+						mRenderables[i]->getSprite()->draw(mRenderables[i]->getPosition());
+					else removeFromRenderables(mRenderables[i]);
+				}//for loop	
+				Cheesy::EndFrame();
+			}
+				
 		}//draw Renderables
 	} //namespace Rendering
 } // namespace myEngine

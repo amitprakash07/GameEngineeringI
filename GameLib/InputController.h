@@ -1,6 +1,7 @@
 #ifndef __INPUT_CONTROLLER_H
 #define __INPUT_CONTROLLER_H
 
+#include "IMessageHandler.h"
 //Helper class for utilizing/wrapping Cheesy functionality into game engine
 //Singleton
 namespace myEngine
@@ -9,6 +10,7 @@ namespace myEngine
 	{
 	public:
 		static InputController*				getInputManager();
+		static void							deleteInputController();
 		unsigned int						getKeyPressed();
 		unsigned int						getKeyDown();
 		bool								isKeyPressed(unsigned int i_keyInput);
@@ -24,6 +26,7 @@ namespace myEngine
 		
 		InputController();
 		InputController(InputController&);
+		~InputController();
 	};
 
 

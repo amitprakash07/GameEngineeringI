@@ -20,6 +20,20 @@ namespace myEngine
 	}
 
 
+	void InputController::deleteInputController()
+	{
+		MessagedAssert(mInputController != nullptr, "Input Controller is either deleted or not created");
+		EngineController::GameEngine::isEngineInitialized() ?
+			EngineController::GameEngine::getMemoryManager()->__free(mInputController) :
+			delete mInputController;
+	}
+
+	
+	InputController::~InputController()
+	{
+	
+	}
+
 	InputController::InputController()
 	{
 		Cheesy::setKeyDownCallback(myEngine::EngineInputController::onKeyDown);
@@ -79,6 +93,7 @@ namespace myEngine
 		void onKeyDown(unsigned int i_key)
 		{
 			EngineController::GameEngine::getInputController()->setKeyDown(i_key);
+			EngineController::GameEngine::getMessagsingSystem()->sendMessage(myEngine::utils::StringHash("Key Down"), EngineController::GameEngine::getInputController(), &i_key);
 		}
 
 
@@ -86,6 +101,8 @@ namespace myEngine
 		void onKeyPressed(unsigned int i_key)
 		{
 			EngineController::GameEngine::getInputController()->setKeyPress(i_key);
+			EngineController::GameEngine::getMessagsingSystem()->sendMessage(myEngine::utils::StringHash("Key Pressed"), EngineController::GameEngine::getInputController(), &i_key);
+				
 		}
 	}
 	

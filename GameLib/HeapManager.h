@@ -13,7 +13,7 @@ namespace MemoryManagement
 	public:
 		static MemoryManager* getMemoryManager(void*, size_t, Alignment);
 		static MemoryManager* getMemoryManager();
-		static void DeleteMemoryManager();
+		static void				deleteMemoryManager();
 		void * __alloc(size_t);
 		void __free(void *);
 

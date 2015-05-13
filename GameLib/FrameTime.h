@@ -17,7 +17,9 @@ namespace myEngine
 			void								pauseTimer(bool);
 			bool								getTimerStatus();
 			float								getdeltaTime();
+			float								getdeltaTimeDuringFrame();
 			void								updateDeltaTime();
+			static uint64_t						getCurrentTick();
 
 		private:
 

@@ -2,9 +2,11 @@
 Settings =
 {
 	Level = 0,
-	MonsterCount = 10, --Maximum Monster Count
-	ActorFile = "ActorData.lua", --List of Actor player and monster
-	DefaultAIChar = "DefaultSettings.lua", --Settings for default monster/AI characters
-	MonsterTexture = "..\\Resources\\Monster.png" , --texture for Monster
-	PlayerTexture = "..\\Resources\\Player.png" --texture for Player
+	MonsterCount = 10, 
+	ActorFile = "ActorData.lua", 
+	DefaultAIChar = "DefaultSettings.lua", 
+	MonsterTexture = "..\\Resources\\Monster.png" , 
+	PlayerTexture = "..\\Resources\\Player.png", 
+	WelcomeScreen = "..\\Resources\\Press_Any_Key.png",
+	LoadingScreen = "..\\Resources\\loading_new.png"
 }

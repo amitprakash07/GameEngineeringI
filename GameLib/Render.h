@@ -26,7 +26,7 @@ namespace myEngine
 			inline void											setOffset(Vector2D);
 			inline float										getRotation();
 			inline void											setRotation(float);
-
+			~Sprite();
 			//draw method
 			void												draw(Vector3D);
 			void												draw();
@@ -44,6 +44,7 @@ namespace myEngine
 			//constructor
 			Sprite(char*,Vector3D,Cheesy::Point2D,Cheesy::ColorRGBA);
 			bool												generateSprite();
+			
 		};
 	} //Rendering
 } //myEngine

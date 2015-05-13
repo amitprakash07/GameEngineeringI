@@ -31,22 +31,22 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DoNothingController.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameObjectController</Filter>
     </ClCompile>
     <ClCompile Include="JumpController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RunController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WalkController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WanderController.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameObjectController</Filter>
     </ClCompile>
     <ClCompile Include="NonPhysicsController.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameObjectController</Filter>
+    </ClCompile>
+    <ClCompile Include="RunController.cpp">
+      <Filter>Source Files\GameObjectController</Filter>
+    </ClCompile>
+    <ClCompile Include="WalkController.cpp">
+      <Filter>Source Files\GameObjectController</Filter>
+    </ClCompile>
+    <ClCompile Include="WanderController.cpp">
+      <Filter>Source Files\GameObjectController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,23 +56,23 @@
     <ClInclude Include="Include.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DoNothingController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RunController.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="WanderController.h">
+      <Filter>Header Files\GameObjectController</Filter>
     </ClInclude>
     <ClInclude Include="WalkController.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameObjectController</Filter>
     </ClInclude>
-    <ClInclude Include="WanderController.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="RunController.h">
+      <Filter>Header Files\GameObjectController</Filter>
     </ClInclude>
     <ClInclude Include="NonPhysicsController.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameObjectController</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpController.h">
+      <Filter>Header Files\GameObjectController</Filter>
+    </ClInclude>
+    <ClInclude Include="DoNothingController.h">
+      <Filter>Header Files\GameObjectController</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
